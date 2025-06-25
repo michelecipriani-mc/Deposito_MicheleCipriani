@@ -30,9 +30,7 @@ public class EsercizioCondizioni1 {
         //Condizioni 
         if (age > 18 || companion.equals("si") && ticket.equals("si") && skip.equals("si")) {
             System.out.println("Prego salti la fila e salga a bordo");
-        } else if (age < 18 && companion.equals("si") && ticket.equals("si") && skip.equals("no")) {
-            System.out.println("Al suo turno può salire a bordo");
-        } else if (age > 18 && ticket.equals("si") && skip.equals("no")) {
+        } else if (age > 18 || companion.equals("si") && ticket.equals("si") && skip.equals("no")) {
             System.out.println("Al suo turno può salire a bordo");
         } else if (age < 18 && companion.equals("no")) {
             System.out.println("Mi dispiace è troppo piccolo per viaggiare solo deve essere accompagnato da un adulto");
