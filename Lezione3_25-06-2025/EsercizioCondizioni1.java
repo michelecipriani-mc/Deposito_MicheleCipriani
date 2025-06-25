@@ -28,9 +28,7 @@ public class EsercizioCondizioni1 {
         String skip = myScanner.nextLine().toLowerCase();
 
         //Condizioni 
-        if (age > 18 && ticket.equals("si") && skip.equals("si")) {
-            System.out.println("Prego salti la fila e salga a bordo");
-        } else if (age < 18 && companion.equals("si") && ticket.equals("si") && skip.equals("si")) {
+        if (age > 18 || companion.equals("si") && ticket.equals("si") && skip.equals("si")) {
             System.out.println("Prego salti la fila e salga a bordo");
         } else if (age < 18 && companion.equals("si") && ticket.equals("si") && skip.equals("no")) {
             System.out.println("Al suo turno può salire a bordo");
