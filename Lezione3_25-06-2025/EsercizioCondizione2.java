@@ -69,7 +69,6 @@ public class EsercizioCondizione2 {
             System.out.printf("Possiamo procedere con la configurazione del pacchetto");
         } else {
             System.out.println("Non sei idoneo per l'assicurazione");
-            return;
         }
 
 

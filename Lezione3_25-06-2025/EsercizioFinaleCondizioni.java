@@ -44,7 +44,6 @@ public class EsercizioFinaleCondizioni {
         } else {
             garaValida = false;
             System.out.println("Ci dispiace! Non può partecipare...");
-            return;
         }
         
         /*ALTEZZA*/
