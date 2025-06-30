@@ -232,7 +232,7 @@ class Library {
                     System.out.println("Libro non disponibile!");
                 }
                 //interrompo il ciclo se trovo il libro che sto cercando
-                break;
+                return;
             }
         }
         //stampo se il libro non è presente in libreria
@@ -246,7 +246,7 @@ class Library {
             //verifico la presenza del libro
             if (book.getTitle().equalsIgnoreCase(title)) {
                 //lo restituisco
-                if (book.isAvailable()) {
+                if (!book.isAvailable()) {
                     book.setAvailable(true);
                     System.out.println("Hai restituito il libro: " + title);
                 } else {
@@ -254,12 +254,11 @@ class Library {
                     System.out.println("Libro disponibile, non era in prestito!");
                 }
                 //interrompo il ciclo se trovo il libro che sto cercando
-                break;
+                return;
             }
         }
         //stampo se il libro non è presente in libreria
         System.out.println("Il libro " + title + " non è presente in libreria...");
     }
 
-    
 }
