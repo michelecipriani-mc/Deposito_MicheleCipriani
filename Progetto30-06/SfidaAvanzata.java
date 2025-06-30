@@ -1,76 +1,60 @@
-/*Java 2025
+/*
 
-Sfida Avanzata: Sistema di Gestione della Biblioteca
+Sistema di Gestione della Biblioteca
+
 Requisiti Base:
-
 1️⃣ Creare una Classe Book con:
-
-String title (Titolo del libro)OK
-String author (Autore del libro)OK
-boolean isAvailable (Disponibilità del libro)OK
-Metodo void displayBookInfo() → Mostra le informazioni del libro.OK
+- String title (Titolo del libro) OK
+- String author (Autore del libro) OK
+- boolean isAvailable (Disponibilità del libro) OK
+- Metodo void displayBookInfo() → Mostra le informazioni del libro. OK
 
 2️⃣ Creare una Classe Library con:
-
-ArrayList<Book> books → Una lista dinamica di libri.OK
-Metodo void addBook(Book book) → Aggiunge un libro alla biblioteca.OK
-Metodo void displayBooks() → Mostra tutti i libri presenti nella biblioteca.OK
-Metodo void borrowBook(String title) → Permette di prendere in prestito un libro
+- ArrayList<Book> books → Una lista dinamica di libri.OK
+- Metodo void addBook(Book book) → Aggiunge un libro alla biblioteca.OK
+- Metodo void displayBooks() → Mostra tutti i libri presenti nella biblioteca.OK
+- Metodo void borrowBook(String title) → Permette di prendere in prestito un libro
 (solo se disponibile).OK
 
 3️⃣ Implementare il Programma Principale per:
-
-Aggiungere libri alla biblioteca.
-Mostrare tutti i libri disponibili.
-Permettere agli utenti di prendere in prestito un libro. 
+- Aggiungere libri alla biblioteca. OK
+- Mostrare tutti i libri disponibili. OK
+- Permettere agli utenti di prendere in prestito un libro. OK
 
 Se hai completato il progetto in anticipo, prova a implementare queste funzionalità
 avanzate:
-
 🔹 4️⃣ Restituzione di un Libro (returnBook(String title))
-
 Implementa un metodo che permette agli utenti di restituire un libro e segnarlo
-come disponibile.
+come disponibile. OK
 
 🔹 5️⃣ Ricerca di un Libro (searchBook(String keyword))
-
 Permetti agli utenti di cercare un libro per titolo o autore e visualizzare i
-risultati.
+risultati. OK
 
 🔹 6️⃣ Gestione di Più Utenti (User Class - Sistema di Prestiti)
-
 Crea una classe User con attributi come String name e una ArrayList<Book> per
 memorizzare i libri presi in prestito.
-
 Modifica il sistema in modo che ogni utente possa prendere in prestito un massimo
-di 3 libri alla volta.
+di 3 libri alla volta. OK
 
 🔹 7️⃣ Sistema di Scadenza e Penalità
-
 Implementa un meccanismo che registra la data di prestito e impone una penale se il
-libro non viene restituito entro un certo periodo (es. 14 giorni).
+libro non viene restituito entro un certo periodo (es. 14 giorni). OK
 
 Extra Bonus:
-
-
 Aggiungi un sistema di menu interattivo in main() per permettere
 agli utenti di navigare nel sistema con opzioni come:
-
-Aggiungere un nuovo libro
-
-Visualizzare tutti i libri disponibili
-
-Cercare un libro
-
-Prendere in prestito un libro
-
-Restituire un libro
-
-Visualizzare i libri presi in prestito da un utente
-
+- Aggiungere un nuovo libro OK
+- Visualizzare tutti i libri disponibili OK
+- Cercare un libro OK
+- Prendere in prestito un libro OK
+- Restituire un libro OK
+- Visualizzare i libri presi in prestito da un utente OK
 
 */
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -78,20 +62,26 @@ public class SfidaAvanzata {
     public static void main(String[] args) {
         //inizializzo una variabile per la scelta
         int scelta = 0;
+        String userName;
         //dichiarazione libreria
         Library library = new Library();
+
         //dichiarazione scanner
         Scanner myScanner = new Scanner(System.in);
         Scanner myScanner2 = new Scanner(System.in);
 
+        //chiedo il nome all'utente
+        System.out.println("Inserisci il tuo nome:");
+        userName = myScanner2.nextLine();
+
         //messaggio di benvenuto
-        System.out.println("Benvenuto, sei nel menu, queste sono le operazioni disponibili!");
+        System.out.println("Benvenuto," + userName + " sei nel menu, queste sono le operazioni disponibili!");
         //ciclo che mi permette di farci vedere il menù ed effettuare le varie scelte
         do {
-            System.out.println("=========Biblioteca digitale=========\n1 - Inserisci Libro\n2 - Visualizza tutti i libri\n3 - Prendi in prestito libro\n4 - Restituisci un libro\n5 - Esci dal menu");
+            System.out.println("=========Biblioteca digitale=========\n1 - Inserisci Libro\n2 - Visualizza tutti i libri\n3 - Prendi in prestito libro\n4 - Restituisci un libro\n5 - Cerca libro\n6 - Visualizza libri per utente\n7 - Esci dal menù");
             scelta = myScanner.nextInt();
             //verifichiamo attraverso un while che la scelta sia corretta
-            while (scelta <=0 && scelta > 5) {
+            while (scelta <=0 || scelta > 7) {
                 System.out.println("Errore: Inserisci un numero valido per il menu: ");
                 scelta = myScanner.nextInt();
             }
@@ -118,7 +108,7 @@ public class SfidaAvanzata {
                     System.out.println("Inserisci il titolo del libro che vuoi prendere in prestito:");
                     String title = myScanner2.nextLine();
                     //invoco il metodo prendi in prestito libro
-                    library.borrowBook(title);
+                    library.borrowBook(title, userName);
                     break;
                 //caso restituisco un libro
                 case 4:
@@ -128,14 +118,37 @@ public class SfidaAvanzata {
                     //invoco il metodo restituisci libro
                     library.returnBook(title1);
                     break;
-                //caso di uscita dal sistema
+                //caso ricerca libro attraverso una keyword
                 case 5:
+                    //chiedo una parola chiave
+                    System.out.println("Inserisci una parola chiave (Titolo/Autore):");
+                    String keyword = myScanner2.nextLine().toLowerCase();
+                    //invoco il metodo cerca libro
+                    library.searchBook(keyword);
+                    break;
+                //caso visualizzo libri per utente
+                case 6:
+                    System.out.println("Inserisci il nome utente:");
+                    String nome = myScanner2.nextLine();
+                    User user = library.getOrCreateUser(nome);
+                    //verifico se l'utente ha libri in prestito
+                    if (user.borrowedBooks.isEmpty()) {
+                        System.out.println("L'utente " + nome + " non ha libri in prestito.");
+                    } else {
+                        System.out.println("Libri in prestito a " + nome + ":");
+                        for (Book book : user.borrowedBooks) {
+                            book.displayBookInfo();
+                        }
+                    }
+                    break;
+                //caso di uscita dal sistema
+                case 7:
                     System.out.println("Arrivederci!");
                     break;
                 default:
                     break;
             }
-        } while (scelta != 5); //verifica della condizione nel while
+        } while (scelta != 7); //verifica della condizione nel while
 
         //chiusura scanner
         myScanner2.close();
@@ -149,12 +162,15 @@ class Book {
     String title;
     String author;
     boolean isAvailable;
+    LocalDate localDate;
+    User currentBarrower;
 
     //costruttore
     public Book(String title, String author) {
         this.title = title;
         this.author = author;
         this.isAvailable = true;
+        this.localDate = null;
     }
 
     //getter e setter
@@ -182,20 +198,55 @@ class Book {
         this.isAvailable = isAvailable;
     }
 
+    public LocalDate getLocalDate() {
+        return localDate;
+    }
+
+    public void setLocalDate(LocalDate localDate) {
+        this.localDate = localDate;
+    }
+    
+    public User getCurrentBarrower() {
+        return currentBarrower;
+    }
+
+    //metodo di set currentBarrower custom
+    public void currentBarrower(User user) {
+        currentBarrower = user;
+    }
+
     //metodo stampa
     void displayBookInfo() {
-        System.out.println("Titolo: " + title + " Author: " + author + " Disponibilità: " + (isAvailable ? "Sì" : "No"));
+        System.out.println("Titolo: " + title + " Author: " + author + " Disponibilità: " + (isAvailable ? "Sì" : "No" + " In prestito a: " + currentBarrower.getNome()));
     }
 
 }
 
+//creo la classe Library
 class Library {
     //dichiarazione di un array list di book
     ArrayList<Book> books;
+    ArrayList<User> users;
+    static final int delay = 14; //periodo massimo di prestito
 
     //costruttore
     public Library() {
         books = new ArrayList<>();
+        users = new ArrayList<>();
+    }
+
+    //metodo per registrare un utente
+    public User getOrCreateUser(String nomeUtente) {
+        //controllo se l'utente esiste
+        for (User user : users) {
+            if (user.getNome().equalsIgnoreCase(nomeUtente)) {
+                return user;
+            }
+        }
+        //altrimenti lo registro
+        User newUser = new User(nomeUtente);
+        users.add(newUser);
+        return newUser;  
     }
 
     //metodo per aggiungere un libro in libreria
@@ -218,18 +269,26 @@ class Library {
     }
 
     //metodo che mi permette di prendere in prestito il libro
-    public void borrowBook(String title) {
+    public void borrowBook(String title, String nomeUtente) {
+        User user = getOrCreateUser(nomeUtente);
         //ciclo gli elementi della libreria
         for (Book book : books) {
             //verifico la presenza del libro
             if (book.getTitle().equalsIgnoreCase(title)) {
                 //se disponibile prendo il libro in prestito
                 if (book.isAvailable()) {
-                    book.setAvailable(false);
-                    System.out.println("Hai preso in prestito il libro: " + title);
+                    //e se l'utente ha meno di 3 libri in prestito
+                    if (user.borrowedBooks.size() < 3) {
+                        //rendo il libro non disponibile, aggiungo la data del prestito, associo il libro all'utente, inserisco il libro nella lista dei libri in suo possesso e comunico che il libro è stato preso in prestito
+                        book.setAvailable(false);
+                        book.setLocalDate(LocalDate.now());
+                        book.currentBarrower(user);
+                        user.borrowedBooks.add(book);
+                        System.out.println("Hai preso in prestito il libro: " + title + " in data: " + book.getLocalDate() + ", ti ricordiamo di restituirlo entro " + delay + " giorni!");
+                    }
                 } else {
                     //altrimenti ne comunico la non disponibilità
-                    System.out.println("Libro non disponibile!");
+                    System.out.println("Libro non disponibile!È in prestito a " + book.getCurrentBarrower().getNome());
                 }
                 //interrompo il ciclo se trovo il libro che sto cercando
                 return;
@@ -247,8 +306,26 @@ class Library {
             if (book.getTitle().equalsIgnoreCase(title)) {
                 //lo restituisco
                 if (!book.isAvailable()) {
-                    book.setAvailable(true);
-                    System.out.println("Hai restituito il libro: " + title);
+                    User barrower = book.getCurrentBarrower();
+                    //se il barrower c'è quindi il libro è noleggiato, rimuovo il libro e setto tutti i dati che servono successivamente per ri noleggiarlo
+                    if (barrower != null) {
+                        barrower.borrowedBooks.remove(book);
+                        book.setAvailable(true);
+                        //verifico che la data di acquisizione del libro sia presente
+                        if (book.getLocalDate() != null) {
+                            //verifico la distanza tra il giorno in cui ho preso il libro e il giorno della riconsegna
+                            long daysBetween = ChronoUnit.DAYS.between(book.getLocalDate(), LocalDate.now());
+                            //se il divario è maggiore di 14gg applico la penale e con la variabile overDay specifico di quanti giorni è in ritardo rispetto alla consegna
+                            if (daysBetween > delay) {
+                                long overDay = daysBetween - delay;
+                                System.out.println("ATTENZIONE! il libro " + title + " è stato restituito con un ritardo di " + overDay + " giorni. Verrà applicata una penale aggiuntiva...");
+                            }
+                        }
+                        //dopodichè resetto gli altri dati e comunico la restituzione del libro
+                        book.setLocalDate(null);
+                        book.currentBarrower(null);
+                        System.out.println("Hai restituito il libro: " + title);
+                    }
                 } else {
                     //altrimenti ne comunico la disponibilità
                     System.out.println("Libro disponibile, non era in prestito!");
@@ -260,5 +337,47 @@ class Library {
         //stampo se il libro non è presente in libreria
         System.out.println("Il libro " + title + " non è presente in libreria...");
     }
+
+    public void searchBook(String keyword) {
+        boolean esito = false;
+        //ciclo gli elementi della libreria
+        for (Book book : books) {
+            //verifico la presenza del libro con la keyword
+            if (book.getTitle().toLowerCase().contains(keyword) || book.getAuthor().toLowerCase().contains(keyword)) {
+                //lo restituisco attraverso il metodo di stampa
+                book.displayBookInfo();
+                esito = true;
+            }
+        }
+        //verifico l'esito della verifica
+        if (!esito) {
+            //stampo se il libro non è presente in libreria
+            System.out.println("Nessun libro trovato con la parola chiave: " + keyword);
+            
+        }
+    }
+
+}
+
+//creo la classe user
+class User {
+    //dichiarazione attributi
+    String nome;
+    ArrayList<Book> borrowedBooks;
+
+    //costruttore
+    public User(String nome) {
+        this.nome = nome;
+        this.borrowedBooks = new ArrayList<>();
+    }
+
+    //getter e setter
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    } 
 
 }
