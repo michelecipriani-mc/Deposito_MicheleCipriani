@@ -29,18 +29,12 @@ public class GestioneScuola {
         for (Persona persona : scolaresca) {
             //stampa le informazioni di base
             persona.stampaInfo();
-            //successivamente se la persona è uno studente
-            if (persona instanceof Studente) {
-                //richiamo il suo metodo descrivi ruolo
-                persona.descriviRuolo();
-                //e il suo metodo di registrazione
-                ((Studente)persona).registrazione();
-            //altrimenti se è un docente
-            } else if (persona instanceof Docente) {
-                //richiamo il suo metodo di descrivi ruolo
-                persona.descriviRuolo();
-                //e il suo metodo di registrazione
-                ((Docente)persona).registrazione();
+            //richiamo il suo metodo descrivi ruolo
+            persona.descriviRuolo();
+            //se l'oggetto implementa Registrabile
+            if (persona instanceof Registrabile) {
+                //richiamane il metodo e stampalo
+                ((Registrabile)persona).registrazione();
             }
         }
     }
