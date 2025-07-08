@@ -24,7 +24,7 @@ public class Borsa {
             //prendo l'input di scelta e lo salvo nella variabile scelta
             scelta = myScannerInt.nextInt();
             //effttuo una verifica di correttezza della scelta altrimenti richiedo 
-            while (scelta < 1 || scelta > 4) {
+            while (scelta < 1 || scelta > 5) {
                 System.out.println("Errore: comando non valido, inserisci un comando valido: ");
                 scelta = myScannerInt.nextInt();
             }
