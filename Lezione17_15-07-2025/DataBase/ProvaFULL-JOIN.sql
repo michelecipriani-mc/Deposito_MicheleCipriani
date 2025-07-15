@@ -1,0 +1,3 @@
+-- Prova FULL OUTER JOIN
+SELECT *
+FROM city CROSS JOIN country;
