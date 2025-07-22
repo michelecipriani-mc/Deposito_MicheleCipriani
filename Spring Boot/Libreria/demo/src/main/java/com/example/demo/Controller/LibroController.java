@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import com.example.demo.Model.Libro;
 import com.example.demo.Service.LibroService;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/libreria/libri")
@@ -32,13 +32,13 @@ public class LibroController {
     }
 
     @PostMapping
-    public ResponseEntity<Libro> create(@RequestBody Libro nuovoLibro) {
+    public ResponseEntity<Libro> create(@RequestBody @Valid Libro nuovoLibro) {
         Libro libroCreato = service.create(nuovoLibro);
         return ResponseEntity.status(HttpStatus.CREATED).body(libroCreato);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Libro> update(@PathVariable Long id, @RequestBody Libro libroModificato) {
+    public ResponseEntity<Libro> update(@PathVariable Long id, @RequestBody @Valid Libro libroModificato) {
         return service.update(id, libroModificato)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
