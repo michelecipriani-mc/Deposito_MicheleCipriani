@@ -1,50 +1,36 @@
 package com.example.demo.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
-
 import com.example.demo.Model.Libro;
 import com.example.demo.Repository.LibroRepository;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class LibroService {
     private final LibroRepository libroRepository;
 
-    public LibroService(LibroRepository libroRepository) {
-        this.libroRepository = libroRepository;
+    public List<Libro> findAll() {
+        return libroRepository.findAll();
     }
 
-    public List<Libro> getAll() {
-        List<Libro> libri = new ArrayList<>();
-        libroRepository.findAll().forEach(libri::add);
-        return libri;
+    public List<Libro> findByAutorId(Long autoreId) {
+        return libroRepository.findByAutoreId(autoreId);
     }
 
-    public Optional<Libro> getById(Long id) {
-        return libroRepository.findById(id);
+    public Libro findById(Long id) {
+        return libroRepository.findById(id).orElseThrow(() -> new RuntimeException("Libro non trovato"));
     }
 
-    public Libro create(Libro nuovoLibro) {
-        return libroRepository.save(nuovoLibro);
+    public Libro save(Libro libro) {
+        return libroRepository.save(libro);
     }
 
-    public Optional<Libro> update(Long id, Libro libroModificato) {
-        return libroRepository.findById(id).map(libro -> {
-            libro.setTitolo(libroModificato.getTitolo());
-            libro.setAutore(libroModificato.getAutore());
-            libro.setPrezzo(libroModificato.getPrezzo());
-            return libroRepository.save(libro);
-        });
+    public void delete(Long id) {
+        libroRepository.deleteById(id);
     }
 
-    public boolean delete(Long id) {
-        if (libroRepository.existsById(id)) {
-            libroRepository.deleteById(id);
-            return true;
-        }
-        return false;
-    }
 }
