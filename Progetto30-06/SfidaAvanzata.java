@@ -1,3 +1,58 @@
+/*
+
+Sistema di Gestione della Biblioteca
+
+Requisiti Base:
+1️⃣ Creare una Classe Book con:
+- String title (Titolo del libro) OK
+- String author (Autore del libro) OK
+- boolean isAvailable (Disponibilità del libro) OK
+- Metodo void displayBookInfo() → Mostra le informazioni del libro. OK
+
+2️⃣ Creare una Classe Library con:
+- ArrayList<Book> books → Una lista dinamica di libri.OK
+- Metodo void addBook(Book book) → Aggiunge un libro alla biblioteca.OK
+- Metodo void displayBooks() → Mostra tutti i libri presenti nella biblioteca.OK
+- Metodo void borrowBook(String title) → Permette di prendere in prestito un libro
+(solo se disponibile).OK
+
+3️⃣ Implementare il Programma Principale per:
+- Aggiungere libri alla biblioteca. OK
+- Mostrare tutti i libri disponibili. OK
+- Permettere agli utenti di prendere in prestito un libro. OK
+
+Se hai completato il progetto in anticipo, prova a implementare queste funzionalità
+avanzate:
+🔹 4️⃣ Restituzione di un Libro (returnBook(String title))
+Implementa un metodo che permette agli utenti di restituire un libro e segnarlo
+come disponibile. OK
+
+🔹 5️⃣ Ricerca di un Libro (searchBook(String keyword))
+Permetti agli utenti di cercare un libro per titolo o autore e visualizzare i
+risultati. OK
+
+🔹 6️⃣ Gestione di Più Utenti (User Class - Sistema di Prestiti)
+Crea una classe User con attributi come String name e una ArrayList<Book> per
+memorizzare i libri presi in prestito.
+Modifica il sistema in modo che ogni utente possa prendere in prestito un massimo
+di 3 libri alla volta. OK
+
+🔹 7️⃣ Sistema di Scadenza e Penalità
+Implementa un meccanismo che registra la data di prestito e impone una penale se il
+libro non viene restituito entro un certo periodo (es. 14 giorni). OK
+
+Extra Bonus:
+Aggiungi un sistema di menu interattivo in main() per permettere
+agli utenti di navigare nel sistema con opzioni come:
+- Aggiungere un nuovo libro OK
+- Visualizzare tutti i libri disponibili OK
+- Cercare un libro OK
+- Prendere in prestito un libro OK
+- Restituire un libro OK
+- Visualizzare i libri presi in prestito da un utente OK
+
+*/
+
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
