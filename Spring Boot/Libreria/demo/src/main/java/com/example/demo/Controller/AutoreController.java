@@ -35,6 +35,13 @@ public class AutoreController {
         return autoreService.save(autore);
     }
 
+    @PutMapping("/{id}")
+    public Autore updateAutore(@PathVariable Long id, @RequestBody Autore modificato) {
+        Autore esistente = autoreService.findById(id);
+        esistente.setNome(modificato.getNome());
+        return autoreService.save(esistente);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteAutore(@PathVariable Long id) {
         autoreService.delete(id);
